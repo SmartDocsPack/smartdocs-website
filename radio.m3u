@@ -1,0 +1,10 @@
+#EXTM3U
+# Example entries. Replace with your own AFTER deployment.
+# Use FULL HTTPS URLs for Alexa routines/skills (relative paths are fine for the site only).
+
+#EXTINF:-1,Example: Song 1
+https://smartdocspack.netlify.app/audio/Song1.mp3
+#EXTINF:-1,Example: Song 2
+https://smartdocspack.netlify.app/audio/Song2.mp3
+#EXTINF:-1,Example: Song 3
+https://smartdocspack.netlify.app/audio/Song3.mp3

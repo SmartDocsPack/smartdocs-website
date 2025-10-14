@@ -1,0 +1,3 @@
+[build]
+  command = "node scripts/make-m3u.js"
+  publish = "."

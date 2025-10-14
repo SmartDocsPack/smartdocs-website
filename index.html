@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SmartDocs Music</title>
+  <link rel="stylesheet" href="assets/style.css" />
+  <meta name="description" content="SmartDocs Music — playlists, live streams, and free radios." />
+</head>
+<body>
+  <header class="site-header">
+    <h1>SmartDocs Music</h1>
+    <p class="tagline">Play your SmartDocsRadio playlist, Gym mix, or browse free radios.</p>
+  </header>
+
+  <main class="container">
+    <nav class="tabs">
+      <button class="tab active" data-tab="playlist">My Playlist</button>
+      <button class="tab" data-tab="myradio">My Radio Stream</button>
+      <button class="tab" data-tab="freeradios">Free Radios</button>
+    </nav>
+
+    <section id="player" class="player">
+      <div class="now-playing">
+        <strong id="track-title">Nothing playing</strong>
+        <small id="track-sub">—</small>
+      </div>
+      <audio id="audio" controls crossorigin="anonymous"></audio>
+      <div class="controls">
+        <button id="prev" title="Previous">⏮</button>
+        <button id="play" title="Play">▶</button>
+        <button id="pause" title="Pause">⏸</button>
+        <button id="next" title="Next">⏭</button>
+      </div>
+      <div class="progress">
+        <input type="range" id="seek" value="0" min="0" max="100" step="0.1">
+        <div class="time">
+          <span id="current-time">0:00</span>
+          <span id="duration">0:00</span>
+        </div>
+      </div>
+      <div class="volume">
+        <label>Volume
+          <input type="range" id="volume" min="0" max="1" step="0.01" value="1">
+        </label>
+      </div>
+    </section>
+
+    <section id="playlist" class="panel active">
+      <div class="panel-actions">
+        <div class="picker">
+          <span>Playlist:</span>
+          <button class="pill active" data-pl="SmartDocsRadio.m3u">SmartDocsRadio</button>
+          <button class="pill" data-pl="gym.m3u">Gym</button>
+        </div>
+        <div class="fetcher">
+          <input type="url" id="m3u-url" placeholder="https://yourdomain/SmartDocsRadio.m3u" />
+          <button id="fetch-m3u">Fetch M3U by URL</button>
+        </div>
+      </div>
+      <p class="hint">Default is <code>SmartDocsRadio.m3u</code>. The picker loads playlists hosted on your site. The URL box lets you try any public M3U.</p>
+      <ol id="playlist-list" class="list"></ol>
+      <div id="msg" class="status"></div>
+    </section>
+
+    <section id="myradio" class="panel">
+      <div class="panel-actions">
+        <input type="url" id="radio-url" placeholder="https://yourdomain/your-live-stream.mp3" />
+        <button id="set-radio">Use This URL</button>
+      </div>
+      <p class="hint">For a single continuous stream (e.g., Icecast/Shoutcast). Saved only in this browser.</p>
+      <div id="myradio-status" class="status">No radio URL set.</div>
+    </section>
+
+    <section id="freeradios" class="panel">
+      <div class="panel-actions">
+        <button id="reload-radios">Reload List</button>
+      </div>
+      <ul id="radio-list" class="list"></ul>
+      <p class="hint">Presets of public, HTTPS-compatible stations.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <small>SmartDocs Music — static site for personal playback. Host via Netlify for HTTPS.</small>
+  </footer>
+
+  <script src="assets/app.js"></script>
+</body>
+</html>

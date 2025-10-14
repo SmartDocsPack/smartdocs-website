@@ -1,0 +1,73 @@
+[
+  {
+    "name": "SomaFM: Groove Salad",
+    "genre": "Ambient/Downtempo",
+    "url": "https://ice6.somafm.com/groovesalad-128-mp3"
+  },
+  {
+    "name": "SomaFM: Drone Zone",
+    "genre": "Ambient/Space",
+    "url": "https://ice1.somafm.com/dronezone-128-mp3"
+  },
+  {
+    "name": "Radio Paradise (Main)",
+    "genre": "Eclectic",
+    "url": "https://stream.radioparadise.com/aac-320"
+  },
+  {
+    "name": "Gensokyo Radio 128k",
+    "genre": "LoFi/Beats",
+    "url": "https://stream.gensokyoradio.net/stream/128"
+  },
+{
+  "name": "M-1",
+  "genre": "Pop / Top 40",
+  "url": "https://radio.m-1.fm/m1/mp3"
+},
+{
+  "name": "ZIP FM",
+  "genre": "Dance / Electronic",
+  "url": "https://stream.zipfm.lt/zipfm.mp3"
+},
+{
+  "name": "LRT Radijas",
+  "genre": "News / Talk",
+  "url": "https://lrt-live.lrt.lt/lrt-radijas/mp3"
+},
+{
+  "name": "LRT Opus",
+  "genre": "Indie / Alternative",
+  "url": "https://lrt-live.lrt.lt/lrt-opus/mp3"
+},
+{
+  "name": "LRT Klasika",
+  "genre": "Classical / Culture",
+  "url": "https://lrt-live.lrt.lt/lrt-klasika/mp3"
+},
+{
+  "name": "Relax FM (Vilnius)",
+  "genre": "Chill / Lounge",
+  "url": "https://stream.relaxfm.lt/relaxfm128.mp3"
+},
+{
+  "name": "M-1 Dance",
+  "genre": "Dance / EDM",
+  "url": "https://radio.m-1.fm/m1dance/mp3"
+},
+{
+  "name": "M-1 Plius",
+  "genre": "Adult Hits",
+  "url": "https://radio.m-1.fm/m1plius/mp3"
+},
+{
+  "name": "Lietus",
+  "genre": "Pop / Lithuanian",
+  "url": "https://radio.m-1.fm/lietusaacp64.mp3"
+},
+{
+  "name": "Žinių radijas",
+  "genre": "News / Talk",
+  "url": "https://stream.ziniuradijas.lt/zr.mp3"
+}
+
+]
