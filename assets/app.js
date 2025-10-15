@@ -117,14 +117,14 @@ function parsePlaylistText(text) {
 document.getElementById('fetch-m3u').addEventListener('click', async ()=> {
   const url = document.getElementById('m3u-url').value.trim();
   if (!url) return alert('Enter an M3U/PLS URL.');
-  await fetchIntoPlayer(url);
+  await fetchIntoPlayer(window.getPlaylistUrl(url));
   localStorage.setItem('lastM3U', url);
 });
 
 async function fetchIntoPlayer(url) {
   try {
     setMessage('Fetching playlist...');
-    const res = await fetch(url, {cache:'no-cache'});
+    const res = await fetch(window.getPlaylistUrl(url), {cache:'no-cache'});
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const text = await res.text();
     const entries = parsePlaylistText(text);
@@ -143,7 +143,7 @@ const pills = document.querySelectorAll('.pill');
 pills.forEach(p => p.addEventListener('click', async ()=> {
   pills.forEach(x => x.classList.remove('active'));
   p.classList.add('active');
-  await fetchIntoPlayer(p.dataset.pl);
+  await fetchIntoPlayer(window.getPlaylistUrl(p.dataset.pl));
   localStorage.setItem('lastPL', p.dataset.pl);
 }));
 
@@ -193,7 +193,7 @@ document.getElementById('reload-radios').addEventListener('click', loadFreeRadio
 
 // Init — auto-load SmartDocsRadio or last used
 (async function init() {
-  const lastPL = localStorage.getItem('lastPL') || 'SmartDocsRadio.m3u';
+  const lastPL = window.getPlaylistUrl(localStorage.getItem('lastPL') || 'SmartDocsRadio.m3u');
   const btn = [...document.querySelectorAll('.pill')].find(b => b.dataset.pl === lastPL);
   if (btn) {
     pills.forEach(x => x.classList.remove('active'));
