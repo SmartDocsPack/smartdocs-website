@@ -84,6 +84,89 @@
   <footer class="site-footer">
     <small>SmartDocs Music — static site for personal playback. Host via Netlify for HTTPS.</small>
   </footer>
+  <!-- SmartDocs cache-busting: adds a version to .m3u fetches and /audio/* sources -->
+  <script>
+    (function () {
+      // Per-load version stamp. Change strategy to a fixed string per deploy if you prefer.
+      const SMARTDOCS_VERSION = String(Math.floor(Date.now() / 1000));
+
+      function withVersion(url) {
+        try {
+          const u = new URL(url, window.location.origin);
+          // Only add to local site assets (same-origin) and only if not already present
+          if (!u.searchParams.has('v')) {
+            // Add to playlists and audio
+            if (u.pathname.endsWith('.m3u') || u.pathname.startsWith('/audio/')) {
+              u.searchParams.set('v', SMARTDOCS_VERSION);
+            }
+          }
+          return u.toString();
+        } catch (e) {
+          // If URL() fails (e.g., malformed), return as-is
+          return url;
+        }
+      }
+
+      // Expose helper for app code to use when building URLs
+      window.getPlaylistUrl = function (baseUrl) {
+        return withVersion(baseUrl || '/SmartDocsRadio.m3u');
+      };
+
+      // ---- Patch fetch so .m3u requests always include ?v= ----
+      const _fetch = window.fetch;
+      window.fetch = function(input, init) {
+        try {
+          if (typeof input === 'string') {
+            if (input.endsWith('.m3u') || input.includes('.m3u?')) {
+              input = withVersion(input);
+            }
+          } else if (input && input.url) {
+            const urlStr = String(input.url);
+            if (urlStr.endsWith('.m3u') || urlStr.includes('.m3u?')) {
+              const vUrl = withVersion(urlStr);
+              input = new Request(vUrl, input);
+            }
+          }
+        } catch (_) {}
+        return _fetch(input, init);
+      };
+
+      // ---- Patch <audio>.src so /audio/* also gets ?v= ----
+      const proto = window.HTMLMediaElement && window.HTMLMediaElement.prototype;
+      if (proto) {
+        const desc = Object.getOwnPropertyDescriptor(proto, 'src');
+        if (desc && desc.set) {
+          Object.defineProperty(proto, 'src', {
+            get: desc.get,
+            set: function(url) {
+              try {
+                // only version local /audio/* files
+                const u = new URL(url, window.location.origin);
+                if (u.pathname.startsWith('/audio/') && !u.searchParams.has('v')) {
+                  url = withVersion(url);
+                }
+              } catch (_) {}
+              return desc.set.call(this, url);
+            }
+          });
+        }
+        // Also guard setAttribute('src', ...)
+        const _setAttr = proto.setAttribute;
+        proto.setAttribute = function(name, value) {
+          if (String(name).toLowerCase() === 'src') {
+            try {
+              const u = new URL(value, window.location.origin);
+              if (u.pathname.startsWith('/audio/') && !u.searchParams.has('v')) {
+                value = withVersion(value);
+              }
+            } catch (_) {}
+          }
+          return _setAttr.call(this, name, value);
+        };
+      }
+    })();
+  </script>
+
 
   <script src="assets/app.js"></script>
 </body>
