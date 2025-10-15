@@ -169,5 +169,24 @@
 
 
   <script src="assets/app.js"></script>
+
+<footer style="margin:32px 0; opacity:.8; font-size:14px; text-align:center;">
+  <span id="build-version">Loading version…</span>
+</footer>
+<script>
+(async () => {
+  try {
+    const res = await fetch('/data/deploy_version.txt', { cache: 'no-store' });
+    const text = (await res.text()).trim();
+    document.getElementById('build-version').textContent =
+      text || 'SmartDocs — version not set';
+  } catch {
+    document.getElementById('build-version').textContent =
+      'SmartDocs — version not available';
+  }
+})();
+</script>
+
+
 </body>
 </html>
